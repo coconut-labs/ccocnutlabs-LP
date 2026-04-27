@@ -1,0 +1,29 @@
+[
+  {
+    "name": "KVWarden",
+    "description": "Tenant-fair scheduling and cache-pressure experiments for shared inference.",
+    "language": "Rust / Python",
+    "repo_url": "https://github.com/coconut-labs/kvwarden",
+    "last_updated": "2026-04-19",
+    "stars": 0,
+    "status": "live"
+  },
+  {
+    "name": "Weft",
+    "description": "Research scheduler for Apple Silicon inference workloads.",
+    "language": "Swift / Python",
+    "repo_url": "https://github.com/coconut-labs/weft",
+    "last_updated": "2026-04-25",
+    "stars": 0,
+    "status": "research"
+  },
+  {
+    "name": "Inference Notes",
+    "description": "Small scripts, traces, and notebook fragments behind the public research feed.",
+    "language": "Python",
+    "repo_url": "https://github.com/coconut-labs/inference-notes",
+    "last_updated": "2026-04-25",
+    "stars": 0,
+    "status": "research"
+  }
+]

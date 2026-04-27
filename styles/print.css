@@ -1,0 +1,34 @@
+@media print {
+  :root {
+    --bg-0: #ffffff;
+    --ink-0: #000000;
+    --ink-1: #333333;
+  }
+
+  body {
+    background: #ffffff !important;
+  }
+
+  header,
+  footer,
+  .no-print,
+  .page-number,
+  .route-transition {
+    display: none !important;
+  }
+
+  main {
+    padding: 0 !important;
+  }
+
+  .post-shell {
+    display: block;
+    max-width: none;
+    padding: 0;
+  }
+
+  .post-body {
+    font-size: 11pt;
+    max-width: none;
+  }
+}

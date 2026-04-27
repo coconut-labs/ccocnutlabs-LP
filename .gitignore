@@ -1,0 +1,14 @@
+.DS_Store
+.env*
+!.env.example
+.next/
+out/
+node_modules/
+coverage/
+playwright-report/
+test-results/
+.npm-cache/
+.playwright-browsers/
+.lighthouseci/
+tmp/
+*.tsbuildinfo

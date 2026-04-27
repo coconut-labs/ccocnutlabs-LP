@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 900" role="img" aria-labelledby="title desc">
+  <title id="title">Jay Patel portrait placeholder</title>
+  <desc id="desc">Editorial placeholder with JP initials.</desc>
+  <rect width="720" height="900" fill="#DED5C2"/>
+  <path d="M0 700c126-72 270-94 430-64 130 24 226 10 290-42v306H0Z" fill="#ECE6D6"/>
+  <path d="M116 178c116-112 302-118 436-16 87 66 112 166 65 266-51 109-168 178-294 172-121-6-222-81-250-186-23-86-8-164 43-236Z" fill="#F7F3E8" stroke="#1A1611" stroke-width="10"/>
+  <text x="360" y="495" text-anchor="middle" font-family="Georgia, serif" font-size="170" fill="#1A1611">JP</text>
+  <path d="M198 186c92-58 218-61 318-8" fill="none" stroke="#9B6B1F" stroke-width="16" stroke-linecap="round"/>
+</svg>
