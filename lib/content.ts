@@ -50,6 +50,7 @@ export type Project = {
   status: ProjectStatus;
   result: string;
   outbound: string;
+  probeWindow?: string;
   content: string;
 };
 
@@ -193,6 +194,7 @@ export async function loadProject(slug: "kvwarden" | "weft"): Promise<Project> {
     status,
     result: assertString(parsed.data.result, "project.result"),
     outbound: assertString(parsed.data.outbound, "project.outbound"),
+    probeWindow: typeof parsed.data.probeWindow === "string" ? parsed.data.probeWindow : undefined,
     content: parsed.content.trim(),
   };
 }
