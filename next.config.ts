@@ -37,6 +37,13 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ["lucide-react", "motion"],
   },
+  async redirects() {
+    return [
+      { source: "/work",     destination: "/projects#tools",          permanent: true },
+      { source: "/papers",   destination: "/research?type=papers",    permanent: true },
+      { source: "/podcasts", destination: "/research?type=podcasts",  permanent: true },
+    ];
+  },
 };
 
 export default withBundleAnalyzer(withMDX(nextConfig));
