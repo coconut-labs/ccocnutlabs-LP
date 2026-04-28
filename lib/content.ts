@@ -251,3 +251,59 @@ export async function loadPerson(slug: PersonSlug): Promise<Person> {
 export async function loadPeople(): Promise<Person[]> {
   return Promise.all([loadPerson("shrey-patel"), loadPerson("jay-patel")]);
 }
+
+export type FeedType = "note" | "paper" | "podcast" | "talk";
+
+export type FeedEntry = {
+  slug: string;
+  date: string;          // YYYY-MM-DD
+  type: FeedType;
+  title: string;
+  dek: string;
+  authors: string[];
+  href: string;          // canonical link to the artifact
+};
+
+/** Returns the slug of the most recent published post, used for build-time CTA resolution. */
+export async function getLatestPostSlug(): Promise<string> {
+  const posts = await getAllPosts();
+  return posts[0]?.slug ?? "tenant-fairness-on-shared-inference";
+}
+
+function listEntryToFeed(entry: ListEntry, type: FeedType): FeedEntry {
+  const slug = entry.title.toLowerCase().replace(/\s+/g, "-");
+  return {
+    slug,
+    date: entry.date,
+    type,
+    title: entry.title,
+    dek: entry.dek,
+    authors: entry.authors ?? [],
+    href: entry.href ?? "#",
+  };
+}
+
+/** Combined chronological feed of research notes + papers + podcasts. Newest first. */
+export async function loadResearchFeed(): Promise<FeedEntry[]> {
+  const [posts, papers, podcasts] = await Promise.all([
+    getAllPosts(),
+    loadPapers(),
+    loadPodcasts(),
+  ]);
+
+  const entries: FeedEntry[] = [
+    ...posts.map<FeedEntry>((p) => ({
+      slug: p.slug,
+      date: p.date,
+      type: "note",
+      title: p.title,
+      dek: p.dek,
+      authors: p.authors,
+      href: `/research/${p.slug}`,
+    })),
+    ...papers.map((p) => listEntryToFeed(p, "paper")),
+    ...podcasts.map((p) => listEntryToFeed(p, "podcast")),
+  ];
+
+  return entries.sort((a, b) => (a.date < b.date ? 1 : -1));
+}
