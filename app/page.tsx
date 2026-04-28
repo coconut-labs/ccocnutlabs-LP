@@ -11,8 +11,8 @@ export default function HomePage() {
     <>
       <Hero />
       <ManifestoStrip />
-      <ResearchStrip />
       <ProjectsStrip />
+      <ResearchStrip />
       <PeopleStrip />
       <ContactStrip />
       <LiveSignalsStrip />
