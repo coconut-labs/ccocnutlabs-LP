@@ -1,11 +1,14 @@
 import Link from "next/link";
-import { Mail } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Wordmark } from "@/components/primitives/Wordmark";
 import { ROUTES } from "@/lib/routes";
+import { getLatestPostSlug } from "@/lib/content";
 
 const navRoutes = ROUTES.filter((route) => route.nav);
 
-export function Header() {
+export async function Header() {
+  const latestSlug = await getLatestPostSlug();
+
   return (
     <header className="no-print sticky top-0 z-50 border-b border-rule/70 bg-bg-1/80 backdrop-blur-xl">
       <div
@@ -13,6 +16,7 @@ export function Header() {
         style={{ minHeight: "var(--header-height)" }}
       >
         <Wordmark compact />
+
         <nav aria-label="Primary" className="hidden items-center gap-5 md:flex">
           {navRoutes.map((route) => (
             <Link
@@ -24,12 +28,13 @@ export function Header() {
             </Link>
           ))}
         </nav>
+
         <Link
-          aria-label="Contact Coconut Labs"
-          className="focus-ring inline-flex h-10 w-10 items-center justify-center rounded border border-rule bg-bg-0 text-ink-0 transition hover:border-accent hover:text-accent"
-          href="/contact"
+          className="focus-ring inline-flex items-center gap-2 rounded border border-accent bg-accent px-4 py-2 font-mono text-[0.74rem] uppercase tracking-wide text-bg-0 transition hover:bg-accent-2 hover:border-accent-2"
+          data-cta="primary"
+          href={`/research/${latestSlug}`}
         >
-          <Mail aria-hidden="true" size={17} />
+          Read the launch <ArrowUpRight aria-hidden="true" size={13} />
         </Link>
       </div>
     </header>
