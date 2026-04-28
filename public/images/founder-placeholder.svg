@@ -1,9 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 900" role="img" aria-labelledby="title desc">
-  <title id="title">Founder portrait placeholder</title>
-  <desc id="desc">A quiet editorial placeholder with Coconut Labs initials.</desc>
-  <rect width="720" height="900" fill="#D4D9C6"/>
-  <path d="M0 710c140-86 286-98 438-36 113 46 206 46 282-1v227H0Z" fill="#ECE6D6"/>
-  <path d="M118 169c125-104 310-101 432 8 76 68 93 168 44 261-55 104-171 166-294 155-119-10-214-90-235-197-17-86 1-160 53-227Z" fill="#F7F3E8" stroke="#1A1611" stroke-width="10"/>
-  <text x="360" y="495" text-anchor="middle" font-family="Georgia, serif" font-size="170" fill="#1A1611">SP</text>
-  <path d="M202 182c86-48 204-45 284 7" fill="none" stroke="#4A5B49" stroke-width="16" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 900" role="img" aria-labelledby="title desc" preserveAspectRatio="xMidYMid slice">
+  <title id="title">Portrait pending</title>
+  <desc id="desc">Editorial placeholder until the real portrait lands.</desc>
+  <rect width="720" height="900" fill="#DED5C2"/>
+  <text x="360" y="780" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, monospace" font-size="22" fill="#8A8275" letter-spacing="3">// portrait pending</text>
 </svg>
