@@ -1,4 +1,4 @@
-import { Mail } from "lucide-react";
+import { EmailLink } from "@/components/primitives/EmailLink";
 
 const EMAIL = "info@coconutlabs.org";
 
@@ -9,13 +9,9 @@ export function ContactStrip() {
         <p className="font-serif text-[clamp(2.8rem,7vw,7rem)] leading-none">
           Building something at this layer? Write us.
         </p>
-        <a
-          className="focus-ring mt-8 inline-flex items-center gap-2 rounded-sm font-mono text-sm text-ink-1 transition-colors hover:text-accent"
-          href={`mailto:${EMAIL}`}
-        >
-          <Mail aria-hidden="true" size={14} />
-          {EMAIL}
-        </a>
+        <div className="mt-8 flex justify-center">
+          <EmailLink className="font-mono text-sm" email={EMAIL} />
+        </div>
       </div>
     </section>
   );

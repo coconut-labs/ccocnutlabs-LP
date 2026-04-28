@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Copy, Mail, Twitter } from "lucide-react";
+import { Check, Copy, Mail, X as XIcon } from "lucide-react";
 import { useState } from "react";
 
 export function ShareRow({ title, doi }: { title: string; doi?: string }) {
@@ -26,8 +26,8 @@ export function ShareRow({ title, doi }: { title: string; doi?: string }) {
         className="focus-ring inline-flex h-10 items-center gap-2 rounded border border-rule bg-bg-1 px-3 hover:border-accent"
         href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(typeof window === "undefined" ? "" : window.location.href)}`}
       >
-        <Twitter aria-hidden="true" size={14} />
-        X/Twitter
+        <XIcon aria-hidden="true" size={14} />
+        X
       </a>
       <a
         className="focus-ring inline-flex h-10 items-center gap-2 rounded border border-rule bg-bg-1 px-3 hover:border-accent"
