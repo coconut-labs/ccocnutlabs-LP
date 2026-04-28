@@ -1,11 +1,10 @@
 import { expect, test } from "@playwright/test";
 
 const routes = [
-  ["/work", "Work"],
-  ["/papers", "Papers"],
-  ["/podcasts", "Podcasts"],
+  ["/projects", "Projects"],
   ["/projects/kvwarden", "KVWarden"],
   ["/projects/weft", "Weft"],
+  ["/research", "Research"],
   ["/joinus", "Build with us."],
   ["/about", "A small lab for shared inference."],
   ["/contact", "Write the lab."],
@@ -23,10 +22,12 @@ test("/about renders both founders", async ({ page }) => {
   await page.goto("/about", { waitUntil: "domcontentloaded" });
   await expect(page.getByRole("heading", { name: "Shrey Patel" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Jay Patel" })).toBeVisible();
-  await expect(page.getByText("Coconut Labs is Shrey Patel and Jay Patel. We work on inference systems")).toBeVisible();
+  await expect(
+    page.getByText("Coconut Labs is Shrey Patel and Jay Patel. We work on inference systems"),
+  ).toBeVisible();
 });
 
-test("/contact exposes the amended email split", async ({ page }) => {
+test("/contact exposes the amended email split with Copy buttons", async ({ page }) => {
   await page.goto("/contact", { waitUntil: "domcontentloaded" });
   const main = page.getByRole("main");
 
@@ -45,4 +46,43 @@ test("/contact exposes the amended email split", async ({ page }) => {
   await expect(main.getByRole("button", { name: "Copy shreypatel@coconutlabs.org" })).toBeVisible();
   await expect(main.getByRole("button", { name: "Copy jaypatel@coconutlabs.org" })).toBeVisible();
   await expect(main.getByRole("button", { name: "Copy info@coconutlabs.org" })).toBeVisible();
+});
+
+test("/contact has response-time + not-for-this-inbox blocks", async ({ page }) => {
+  await page.goto("/contact", { waitUntil: "domcontentloaded" });
+  await expect(page.getByText(/response time/i).first()).toBeVisible();
+  await expect(page.getByText(/We don't always reply quickly/i)).toBeVisible();
+  await expect(page.getByText(/not for this inbox/i).first()).toBeVisible();
+  await expect(page.getByText(/Sales outreach/i)).toBeVisible();
+});
+
+test("/joinus shows the 5 starting paths + contributors block", async ({ page }) => {
+  await page.goto("/joinus", { waitUntil: "domcontentloaded" });
+  await expect(page.getByText(/Reproduce Gate 2/i)).toBeVisible();
+  await expect(page.getByText(/H100 saturation case/i)).toBeVisible();
+  await expect(page.getByText(/baseline scheduler/i)).toBeVisible();
+  await expect(page.getByText(/failure mode in the fairness claim/i)).toBeVisible();
+  await expect(page.getByText(/Patch the harness/i)).toBeVisible();
+  await expect(page.getByText(/Just us, for now/i)).toBeVisible();
+});
+
+test("/projects shows KVWarden + Weft + tools section", async ({ page }) => {
+  await page.goto("/projects", { waitUntil: "domcontentloaded" });
+  await expect(page.getByRole("heading", { name: "KVWarden" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Weft" })).toBeVisible();
+  await expect(page.getByText(/tools and experiments/i)).toBeVisible();
+  await expect(page.getByText(/1\.14× of solo TTFT, 26× better than FIFO/i)).toBeVisible();
+  await expect(page.getByText(/In research/i).first()).toBeVisible();
+});
+
+test("/research filter row routes to type-filtered views", async ({ page }) => {
+  await page.goto("/research", { waitUntil: "domcontentloaded" });
+
+  for (const label of ["all", "notes", "papers", "podcasts", "talks"]) {
+    await expect(page.getByRole("link", { name: label, exact: true })).toBeVisible();
+  }
+
+  await page.getByRole("link", { name: "papers", exact: true }).click();
+  await expect(page).toHaveURL(/\/research\?type=paper/);
+  await expect(page.getByText(/No papers yet/i)).toBeVisible();
 });
