@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { STATIC_ROUTES, siteUrl } from "@/lib/routes";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return STATIC_ROUTES.map((route) => ({
+  return STATIC_ROUTES.filter((route) => !route.includes("[")).map((route) => ({
     url: new URL(route, siteUrl()).toString(),
     lastModified: new Date("2026-04-25"),
     changeFrequency: route === "/" ? "weekly" : "monthly",

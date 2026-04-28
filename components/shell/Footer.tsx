@@ -4,6 +4,8 @@ import { EmailLink } from "@/components/primitives/EmailLink";
 import { Wordmark } from "@/components/primitives/Wordmark";
 import { ROUTES } from "@/lib/routes";
 
+const footerRoutes = ROUTES.filter((route) => !route.href.includes("["));
+
 const socials = [
   { label: "GitHub", href: "https://github.com/coconut-labs" },
   { label: "X/Twitter", href: "https://x.com/coconutlabs" },
@@ -23,7 +25,7 @@ export function Footer() {
           </p>
         </div>
         <nav aria-label="Footer" className="grid grid-cols-2 gap-3 font-mono text-xs text-ink-1">
-          {ROUTES.map((route) => (
+          {footerRoutes.map((route) => (
             <Link className="focus-ring rounded-sm transition hover:text-accent" href={route.href} key={route.href}>
               {route.label}
             </Link>
