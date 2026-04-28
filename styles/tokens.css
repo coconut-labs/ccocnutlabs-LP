@@ -36,11 +36,9 @@
 @keyframes hero-breathe {
   from {
     transform: scale(1);
-    font-variation-settings: "opsz" 18;
   }
   to {
-    transform: scale(1.003);
-    font-variation-settings: "opsz" 18.6;
+    transform: scale(1.004);
   }
 }
 

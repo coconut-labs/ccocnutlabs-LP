@@ -13,7 +13,12 @@ export async function Hero() {
         <p className="mb-5 font-mono text-xs uppercase text-accent-2">independent inference research</p>
         <h1
           className="max-w-5xl font-serif text-[clamp(4.8rem,13vw,9.8rem)] leading-[0.92] text-ink-0"
-          style={{ animation: "hero-breathe 8s ease-in-out infinite alternate", letterSpacing: 0 }}
+          style={{
+            animation: "hero-breathe 8s ease-in-out infinite alternate",
+            letterSpacing: 0,
+            willChange: "transform",
+            transformOrigin: "left center",
+          }}
         >
           Coconut Labs
         </h1>

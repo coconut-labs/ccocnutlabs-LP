@@ -7,7 +7,7 @@ export function PaperFoldSvgFallback() {
       preserveAspectRatio="xMidYMid meet"
       viewBox="0 0 900 680"
     >
-      <g style={{ animation: "paper-float 9s ease-in-out infinite" }}>
+      <g style={{ animation: "paper-float 9s ease-in-out infinite", willChange: "transform" }}>
         <path d="M175 455 374 92l331 118-142 382Z" fill="#F7F3E8" stroke="#1A1611" strokeOpacity=".26" />
         <path d="M374 92 439 422 705 210Z" fill="#D4D9C6" stroke="#1A1611" strokeOpacity=".18" />
         <path d="M175 455 439 422 563 592Z" fill="#ECE6D6" stroke="#1A1611" strokeOpacity=".18" />
