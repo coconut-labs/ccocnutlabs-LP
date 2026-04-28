@@ -6,14 +6,20 @@ export type RouteEntry = {
 
 export const ROUTES: RouteEntry[] = [
   { href: "/", label: "Home" },
+
+  // Top nav (primary)
   { href: "/research", label: "Research", nav: true },
-  { href: "/work", label: "Work", nav: true },
-  { href: "/papers", label: "Papers", nav: true },
-  { href: "/podcasts", label: "Podcasts", nav: true },
-  { href: "/projects/kvwarden", label: "Projects", nav: true },
-  { href: "/joinus", label: "Join us", nav: true },
-  { href: "/about", label: "About", nav: true },
-  { href: "/contact", label: "Contact" },
+  { href: "/projects", label: "Projects", nav: true },
+  { href: "/joinus",   label: "Join us",  nav: true },
+  { href: "/about",    label: "About",    nav: true },
+  { href: "/contact",  label: "Contact",  nav: true },
+
+  // Hub-internal (URL-stable, not in top nav)
+  { href: "/research/[slug]",   label: "Research post" },
+  { href: "/projects/kvwarden", label: "KVWarden" },
+  { href: "/projects/weft",     label: "Weft" },
+
+  // Footer-only
   { href: "/colophon", label: "Colophon" },
 ];
 
