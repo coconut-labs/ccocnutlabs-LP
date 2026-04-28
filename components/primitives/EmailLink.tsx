@@ -37,22 +37,42 @@ export function EmailLink({
       textarea.remove();
     }
     setCopied(true);
-    window.setTimeout(() => setCopied(false), 1200);
+    window.setTimeout(() => setCopied(false), 1600);
   }
 
   return (
     <span className={`inline-flex flex-wrap items-center gap-2 ${className}`}>
-      <a className="focus-ring inline-flex items-center gap-2 rounded-sm text-accent" href={href}>
-        {label ?? email} <Mail aria-hidden="true" size={14} />
+      <a
+        className="focus-ring inline-flex items-center gap-2 rounded-sm text-accent transition hover:underline"
+        data-cta="mailto"
+        href={href}
+      >
+        <Mail aria-hidden="true" size={14} />
+        {label ?? email}
       </a>
       <button
         aria-label={`Copy ${email}`}
-        className="focus-ring inline-flex h-8 w-8 items-center justify-center rounded border border-rule bg-bg-1 text-ink-1 transition hover:border-accent hover:text-accent"
+        className={`focus-ring inline-flex h-9 items-center gap-2 rounded border px-3 font-mono text-[0.7rem] uppercase tracking-wide transition ${
+          copied
+            ? "border-accent-2 bg-accent-2/10 text-accent-2"
+            : "border-rule bg-bg-1 text-ink-1 hover:border-accent hover:text-accent"
+        }`}
+        data-cta="copy-email"
         onClick={copyEmail}
         title={copied ? "Copied" : `Copy ${email}`}
         type="button"
       >
-        {copied ? <Check aria-hidden="true" size={13} /> : <Copy aria-hidden="true" size={13} />}
+        {copied ? (
+          <>
+            <Check aria-hidden="true" size={13} />
+            Copied
+          </>
+        ) : (
+          <>
+            <Copy aria-hidden="true" size={13} />
+            Copy
+          </>
+        )}
       </button>
     </span>
   );
