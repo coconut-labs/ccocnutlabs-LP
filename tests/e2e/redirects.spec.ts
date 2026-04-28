@@ -1,10 +1,10 @@
 import { test, expect } from "@playwright/test";
 
 test.describe("legacy route redirects", () => {
-  test("/work redirects to /projects#tools (404 until projects hub lands)", async ({ page }) => {
-    await page.goto("/work");
-    expect(page.url()).toMatch(/\/projects/);
-    // 404 is expected here until Task 9; once /projects/page.tsx exists, change to expect(response?.status()).toBe(200)
+  test("/work redirects to /projects#tools", async ({ page }) => {
+    const response = await page.goto("/work");
+    expect(response?.status()).toBe(200);
+    expect(page.url()).toMatch(/\/projects(#tools)?$/);
   });
 
   test("/papers redirects to /research?type=papers", async ({ page }) => {
