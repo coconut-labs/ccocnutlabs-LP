@@ -22,7 +22,7 @@ export function Wordmark({
   compact = false,
   animateOnFirstVisit = false,
 }: WordmarkProps) {
-  const fontSize = compact ? "0.95rem" : "1.15rem";
+  const fontSize = compact ? "1.3rem" : "1.4rem";
 
   return (
     <Link
