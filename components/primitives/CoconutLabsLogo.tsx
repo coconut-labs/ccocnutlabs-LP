@@ -14,6 +14,19 @@
  *   1550ms  outer brackets snap in fast from outside, framing the mark
  *
  * `prefers-reduced-motion: reduce` skips the animation entirely.
+ *
+ * Crispness notes:
+ *   - Each keyframe ends with `transform: none` (NOT `translate*(0)`).
+ *     `transform: none` lets Chrome/Safari release the compositing layer
+ *     after animation completes, returning the element to vector-crisp
+ *     main-thread rendering. With `translate*(0)` the layer persists and
+ *     the SVG is permanently soft.
+ *   - Bracket strokes use `vector-effect="non-scaling-stroke"` so the
+ *     line weight stays at the user-defined pixel width regardless of
+ *     how the SVG is scaled. No fractional-pixel stroke blur.
+ *   - shape-rendering=geometricPrecision + text-rendering=
+ *     geometricPrecision lock in the highest-quality vector + glyph
+ *     rasterization on Chrome, Safari, Firefox.
  */
 
 import type { CSSProperties, ReactElement } from "react";
@@ -77,57 +90,67 @@ export function CoconutLabsLogo({
         }
 
         .cl-logo.cl-animated .cl-mark-dot-1 {
-          animation: cl-dot-drop 350ms cubic-bezier(0.2, 0.8, 0.4, 1) 0ms both;
+          animation: cl-dot-drop 350ms cubic-bezier(0.2, 0.8, 0.4, 1) 0ms forwards;
         }
         .cl-logo.cl-animated .cl-mark-divider-1 {
-          animation: cl-divider-wave 400ms ease-out 250ms both;
+          animation: cl-divider-wave 400ms ease-out 250ms forwards;
         }
         .cl-logo.cl-animated .cl-mark-dot-2,
         .cl-logo.cl-animated .cl-mark-dot-3,
         .cl-logo.cl-animated .cl-mark-dot-4 {
-          animation: cl-dot-drop 350ms cubic-bezier(0.2, 0.8, 0.4, 1) 500ms both;
+          animation: cl-dot-drop 350ms cubic-bezier(0.2, 0.8, 0.4, 1) 500ms forwards;
         }
         .cl-logo.cl-animated .cl-mark-divider-2,
         .cl-logo.cl-animated .cl-mark-divider-3 {
-          animation: cl-divider-wave 400ms ease-out 750ms both;
+          animation: cl-divider-wave 400ms ease-out 750ms forwards;
         }
         .cl-logo.cl-animated .cl-text-coconut {
-          animation: cl-text-coconut-emerge 500ms cubic-bezier(0.2, 0.8, 0.4, 1) 1100ms both;
+          animation: cl-text-coconut-emerge 500ms cubic-bezier(0.2, 0.8, 0.4, 1) 1100ms forwards;
         }
         .cl-logo.cl-animated .cl-text-labs {
-          animation: cl-text-labs-emerge 500ms cubic-bezier(0.2, 0.8, 0.4, 1) 1100ms both;
+          animation: cl-text-labs-emerge 500ms cubic-bezier(0.2, 0.8, 0.4, 1) 1100ms forwards;
         }
         .cl-logo.cl-animated .cl-mark-bracket-left {
-          animation: cl-bracket-left-snap 300ms cubic-bezier(0.2, 0.8, 0.4, 1) 1550ms both;
+          animation: cl-bracket-left-snap 300ms cubic-bezier(0.2, 0.8, 0.4, 1) 1550ms forwards;
         }
         .cl-logo.cl-animated .cl-mark-bracket-right {
-          animation: cl-bracket-right-snap 300ms cubic-bezier(0.2, 0.8, 0.4, 1) 1550ms both;
+          animation: cl-bracket-right-snap 300ms cubic-bezier(0.2, 0.8, 0.4, 1) 1550ms forwards;
         }
+
+        /* Each animation ends with transform: none (not translate*(0)) so
+           Chrome/Safari can release the GPU compositing layer and return
+           the element to vector-crisp main-thread rendering. */
 
         @keyframes cl-dot-drop {
           from { opacity: 0; transform: translateY(-6px); }
-          to   { opacity: 1; transform: translateY(0); }
+          99%  { opacity: 1; transform: translateY(0); }
+          to   { opacity: 1; transform: none; }
         }
         @keyframes cl-divider-wave {
           0%   { opacity: 0;   transform: translateY(-3px); }
           60%  { opacity: 0.5; transform: translateY(1px); }
-          100% { opacity: 0.5; transform: translateY(0); }
+          99%  { opacity: 0.5; transform: translateY(0); }
+          100% { opacity: 0.5; transform: none; }
         }
         @keyframes cl-text-coconut-emerge {
           from { opacity: 0; transform: translateX(14px); }
-          to   { opacity: 1; transform: translateX(0); }
+          99%  { opacity: 1; transform: translateX(0); }
+          to   { opacity: 1; transform: none; }
         }
         @keyframes cl-text-labs-emerge {
           from { opacity: 0; transform: translateX(-14px); }
-          to   { opacity: 1; transform: translateX(0); }
+          99%  { opacity: 1; transform: translateX(0); }
+          to   { opacity: 1; transform: none; }
         }
         @keyframes cl-bracket-left-snap {
           from { opacity: 0; transform: translateX(-8px); }
-          to   { opacity: 1; transform: translateX(0); }
+          99%  { opacity: 1; transform: translateX(0); }
+          to   { opacity: 1; transform: none; }
         }
         @keyframes cl-bracket-right-snap {
           from { opacity: 0; transform: translateX(8px); }
-          to   { opacity: 1; transform: translateX(0); }
+          99%  { opacity: 1; transform: translateX(0); }
+          to   { opacity: 1; transform: none; }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -167,6 +190,7 @@ export function CoconutLabsLogo({
         fill="none"
         stroke="currentColor"
         strokeWidth="2"
+        vectorEffect="non-scaling-stroke"
         className="cl-mark-bracket cl-mark-bracket-left"
       />
 
@@ -213,6 +237,7 @@ export function CoconutLabsLogo({
         fill="none"
         stroke="currentColor"
         strokeWidth="2"
+        vectorEffect="non-scaling-stroke"
         className="cl-mark-bracket cl-mark-bracket-right"
       />
 
