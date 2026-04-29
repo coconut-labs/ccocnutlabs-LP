@@ -15,7 +15,7 @@ export async function Header() {
         className="mx-auto flex h-[var(--header-height)] max-w-[92rem] items-center justify-between gap-6 px-[var(--space-page-x)]"
         style={{ minHeight: "var(--header-height)" }}
       >
-        <Wordmark compact />
+        <Wordmark compact animateOnFirstVisit />
 
         <nav aria-label="Primary" className="hidden items-center gap-5 md:flex">
           {navRoutes.map((route) => (
