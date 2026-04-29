@@ -17,9 +17,8 @@ export async function Hero() {
             animate
             ariaLabel="Coconut Labs"
             style={{
-              display: "block",
-              width: "min(72vw, 44rem)",
-              height: "auto",
+              display: "inline-flex",
+              fontSize: "clamp(2.4rem, 7.5vw, 4.5rem)",
               maxWidth: "100%",
             }}
           />

@@ -41,7 +41,7 @@ export function Wordmark({
     }
   }, [animateOnFirstVisit]);
 
-  const width = compact ? 175 : 220;
+  const fontSize = compact ? "0.95rem" : "1.15rem";
 
   return (
     <Link
@@ -49,7 +49,7 @@ export function Wordmark({
       className={`focus-ring inline-flex items-center rounded-sm text-ink-0 ${className}`.trim()}
       href={href}
     >
-      <CoconutLabsLogo animate={animate} width={width} />
+      <CoconutLabsLogo animate={animate} style={{ fontSize }} />
     </Link>
   );
 }
