@@ -15,9 +15,13 @@ export async function Hero() {
         <h1 className="block leading-none text-ink-0">
           <CoconutLabsLogo
             animate
-            width={960}
             ariaLabel="Coconut Labs"
-            style={{ width: "min(86vw, 64rem)", height: "auto", maxWidth: "100%" }}
+            style={{
+              display: "block",
+              width: "min(72vw, 44rem)",
+              height: "auto",
+              maxWidth: "100%",
+            }}
           />
         </h1>
         <p className="mt-10 max-w-2xl font-sans text-xl leading-8 text-ink-1 md:text-2xl">

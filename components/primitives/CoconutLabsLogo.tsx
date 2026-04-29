@@ -19,7 +19,11 @@
 import type { CSSProperties, ReactElement } from "react";
 
 export interface CoconutLabsLogoProps {
-  /** Rendered width in pixels. Height scales automatically. Default 245. */
+  /**
+   * Rendered width in pixels (sets the SVG width attribute). If omitted,
+   * the SVG has no width attribute and is sized purely by CSS — pass a
+   * `style.width` or className to control size in fluid contexts.
+   */
   width?: number;
   /** Whether to play the entry animation. Default true. */
   animate?: boolean;
@@ -30,7 +34,7 @@ export interface CoconutLabsLogoProps {
 }
 
 export function CoconutLabsLogo({
-  width = 245,
+  width,
   animate = true,
   className = "",
   style,
@@ -40,15 +44,18 @@ export function CoconutLabsLogo({
 
   return (
     <svg
-      width={width}
+      {...(width !== undefined ? { width } : {})}
       viewBox="0 0 245 30"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
       aria-label={ariaLabel}
+      shapeRendering="geometricPrecision"
+      textRendering="geometricPrecision"
       className={`cl-logo ${stateClass} ${className}`.trim()}
       style={{
         display: "inline-block",
         verticalAlign: "middle",
+        overflow: "visible",
         ...style,
       }}
     >
