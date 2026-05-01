@@ -1,20 +1,22 @@
-import { PersonCard } from "@/components/about/PersonCard";
+// People grid hidden for now — names not public yet. Re-enable by
+// uncommenting the loadPeople import + call and the people grid <div> below.
+// import { PersonCard } from "@/components/about/PersonCard";
 import { PrincipleCard } from "@/components/about/PrincipleCard";
-import { loadManifesto, loadPeople, loadPrinciples } from "@/lib/content";
+import { loadManifesto, loadPrinciples } from "@/lib/content";
 import { Markdown } from "@/lib/markdown";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
   title: "About · Coconut Labs",
-  description: "Manifesto, people, and working principles for Coconut Labs.",
+  description: "Manifesto and working principles for Coconut Labs.",
   path: "/about",
 });
 
 export default async function AboutPage() {
-  const [manifesto, principles, people] = await Promise.all([
+  const [manifesto, principles] = await Promise.all([
     loadManifesto(),
     loadPrinciples(),
-    loadPeople(),
+    // loadPeople(),  // re-enable when names are public
   ]);
 
   return (
@@ -25,12 +27,16 @@ export default async function AboutPage() {
         <div className="post-body mt-12">
           <Markdown content={manifesto} />
         </div>
+
+        {/* People grid hidden for now — see import comment at top.
         <div className="mt-20 grid gap-5 lg:grid-cols-2">
           <h2 className="sr-only">People</h2>
           {people.map((person) => (
             <PersonCard key={person.slug} person={person} />
           ))}
         </div>
+        */}
+
         <h2 className="mt-20 font-serif text-[clamp(3rem,7vw,6rem)] leading-none">How we work</h2>
         <div className="mt-10 grid gap-8 md:grid-cols-2">
           {principles.map((principle) => (

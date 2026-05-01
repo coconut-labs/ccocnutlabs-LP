@@ -1,9 +1,13 @@
 Coconut Labs
-Built by Shrey Patel and Jay Patel with Codex.
 
-Founders:
-- Shrey Patel - shreypatel@coconutlabs.org
-- Jay Patel - jaypatel@coconutlabs.org
+# Per-person block hidden for now — names not public yet.
+# Re-enable when ready:
+#
+# Built by Shrey Patel and Jay Patel with Codex.
+#
+# Founders:
+# - Shrey Patel - shreypatel@coconutlabs.org
+# - Jay Patel - jaypatel@coconutlabs.org
 
 Contact: info@coconutlabs.org
 Stack: Next.js, React, TypeScript, Tailwind CSS, MDX

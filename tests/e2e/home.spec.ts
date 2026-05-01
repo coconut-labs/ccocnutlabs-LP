@@ -11,8 +11,10 @@ test("home renders the full composition in the new order", async ({ page }) => {
   // Strips — Projects above Research
   await expect(page.getByRole("heading", { name: "Projects" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Recent research" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Two people, close to the work." })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Jay Patel" })).toBeVisible();
+
+  // PeopleStrip — names hidden, generic copy used.
+  // See components/home/PeopleStrip.tsx for the founder-cards-hidden state.
+  await expect(page.getByRole("heading", { name: "Two engineers, close to the work." })).toBeVisible();
 
   // Contact strip
   await expect(page.getByText("Building something at this layer?")).toBeVisible();

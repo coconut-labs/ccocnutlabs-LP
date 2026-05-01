@@ -18,34 +18,28 @@ for (const [route, heading] of routes) {
   });
 }
 
-test("/about renders both founders", async ({ page }) => {
+// Founder names hidden for now (see content/about/manifesto.mdx + app/about/page.tsx).
+// When re-enabling: replace this with a /about-renders-both-founders assertion.
+test("/about manifesto reads name-free", async ({ page }) => {
   await page.goto("/about", { waitUntil: "domcontentloaded" });
-  await expect(page.getByRole("heading", { name: "Shrey Patel" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Jay Patel" })).toBeVisible();
-  await expect(
-    page.getByText("Coconut Labs is Shrey Patel and Jay Patel. We work on inference systems"),
-  ).toBeVisible();
+  await expect(page.getByText(/Coconut Labs is a small inference research lab/i)).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Shrey Patel" })).not.toBeVisible();
+  await expect(page.getByRole("heading", { name: "Jay Patel" })).not.toBeVisible();
 });
 
-test("/contact exposes the amended email split with Copy buttons", async ({ page }) => {
+test("/contact uses single info@coconutlabs.org inbox with Copy button", async ({ page }) => {
   await page.goto("/contact", { waitUntil: "domcontentloaded" });
   const main = page.getByRole("main");
 
-  await expect(main.getByRole("link", { name: /shreypatel@coconutlabs.org/i })).toHaveAttribute(
-    "href",
-    "mailto:shreypatel@coconutlabs.org?subject=Collaborate",
-  );
-  await expect(main.getByRole("link", { name: /jaypatel@coconutlabs.org/i })).toHaveAttribute(
-    "href",
-    "mailto:jaypatel@coconutlabs.org?subject=Press",
-  );
   await expect(main.getByRole("link", { name: /info@coconutlabs.org/i })).toHaveAttribute(
     "href",
     "mailto:info@coconutlabs.org",
   );
-  await expect(main.getByRole("button", { name: "Copy shreypatel@coconutlabs.org" })).toBeVisible();
-  await expect(main.getByRole("button", { name: "Copy jaypatel@coconutlabs.org" })).toBeVisible();
   await expect(main.getByRole("button", { name: "Copy info@coconutlabs.org" })).toBeVisible();
+
+  // Per-person addresses must NOT appear while names are hidden.
+  await expect(main.getByText(/shreypatel@coconutlabs.org/i)).not.toBeVisible();
+  await expect(main.getByText(/jaypatel@coconutlabs.org/i)).not.toBeVisible();
 });
 
 test("/contact has response-time + not-for-this-inbox blocks", async ({ page }) => {
