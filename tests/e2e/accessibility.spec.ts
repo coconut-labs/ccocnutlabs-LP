@@ -9,7 +9,7 @@ const routes = [
   "/papers",
   "/podcasts",
   "/projects/kvwarden",
-  "/projects/weft",
+  "/projects/mlxd",
   "/joinus",
   "/about",
   "/contact",

@@ -13,11 +13,11 @@ const projects = [
     tone: "sage" as const,
   },
   {
-    name: "Weft",
-    href: "/projects/weft",
+    name: "mlxd",
+    href: "/projects/mlxd",
     status: "In research",
-    result: "Apple Silicon scheduler experiments",
-    body: "A local inference thread focused on load, correctness, and tenants that do not politely wait their turn.",
+    result: "Tenant-fair Apple Silicon inference",
+    body: "A scheduler + admission layer on top of mlx_lm.server. Restoring tenant identity first, then fairness on unified-memory hardware.",
     tone: "amber" as const,
   },
 ];

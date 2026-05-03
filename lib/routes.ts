@@ -17,7 +17,7 @@ export const ROUTES: RouteEntry[] = [
   // Hub-internal (URL-stable, not in top nav)
   { href: "/research/[slug]",   label: "Research post" },
   { href: "/projects/kvwarden", label: "KVWarden" },
-  { href: "/projects/weft",     label: "Weft" },
+  { href: "/projects/mlxd",     label: "mlxd" },
 
   // Footer-only
   { href: "/colophon", label: "Colophon" },

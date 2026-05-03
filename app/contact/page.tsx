@@ -37,7 +37,7 @@ export const metadata = buildMetadata({
 const NOT_FOR = [
   "Sales outreach. If you are selling something, you can stop here.",
   "Recruiting. We are not hiring. If we ever are, /joinus will say so.",
-  "Bug reports for KVWarden or Weft. File an issue on the repo instead.",
+  "Bug reports for KVWarden or mlxd. File an issue on the repo instead.",
 ];
 
 export default function ContactPage() {

@@ -3,7 +3,7 @@ import { expect, test } from "@playwright/test";
 const routes = [
   ["/projects", "Projects"],
   ["/projects/kvwarden", "KVWarden"],
-  ["/projects/weft", "Weft"],
+  ["/projects/mlxd", "mlxd"],
   ["/research", "Research"],
   ["/joinus", "Build with us."],
   ["/about", "A small lab for shared inference."],
@@ -60,10 +60,10 @@ test("/joinus shows the 5 starting paths + contributors block", async ({ page })
   await expect(page.getByText(/Just us, for now/i)).toBeVisible();
 });
 
-test("/projects shows KVWarden + Weft + tools section", async ({ page }) => {
+test("/projects shows KVWarden + mlxd + tools section", async ({ page }) => {
   await page.goto("/projects", { waitUntil: "domcontentloaded" });
   await expect(page.getByRole("heading", { name: "KVWarden" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Weft" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "mlxd" })).toBeVisible();
   await expect(page.getByText(/tools and experiments/i)).toBeVisible();
   await expect(page.getByText(/1\.14× of solo TTFT, 26× better than FIFO/i)).toBeVisible();
   await expect(page.getByText(/In research/i).first()).toBeVisible();

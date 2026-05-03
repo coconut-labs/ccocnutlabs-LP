@@ -4,13 +4,13 @@ import { Markdown } from "@/lib/markdown";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Weft · Coconut Labs",
-  description: "Scheduling experiments for Apple Silicon inference.",
-  path: "/projects/weft",
+  title: "mlxd · Coconut Labs",
+  description: "Tenant-fair LLM inference on Apple Silicon.",
+  path: "/projects/mlxd",
 });
 
-export default async function WeftPage() {
-  const project = await loadProject("weft");
+export default async function MlxdPage() {
+  const project = await loadProject("mlxd");
   return (
     <>
       <ProjectHero project={project} />

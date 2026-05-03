@@ -39,9 +39,10 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
-      { source: "/work",     destination: "/projects#tools",          permanent: true },
-      { source: "/papers",   destination: "/research?type=papers",    permanent: true },
-      { source: "/podcasts", destination: "/research?type=podcasts",  permanent: true },
+      { source: "/work",          destination: "/projects#tools",          permanent: true },
+      { source: "/papers",        destination: "/research?type=papers",    permanent: true },
+      { source: "/podcasts",      destination: "/research?type=podcasts",  permanent: true },
+      { source: "/projects/weft", destination: "/projects/mlxd",           permanent: true },
     ];
   },
 };

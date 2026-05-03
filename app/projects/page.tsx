@@ -10,14 +10,14 @@ export const metadata = buildMetadata({
 });
 
 export default async function ProjectsPage() {
-  const [kvwarden, weft, work] = await Promise.all([
+  const [kvwarden, mlxd, work] = await Promise.all([
     loadProject("kvwarden"),
-    loadProject("weft"),
+    loadProject("mlxd"),
     loadWork(),
   ]);
 
   // Filter the tools list — flagships are projects, not tools.
-  const tools = work.filter((entry) => !["KVWarden", "Weft"].includes(entry.name));
+  const tools = work.filter((entry) => !["KVWarden", "mlxd"].includes(entry.name));
 
   return (
     <section className="content-band">
@@ -62,22 +62,22 @@ export default async function ProjectsPage() {
           </div>
         </article>
 
-        {/* Weft — medium card */}
+        {/* mlxd — medium card */}
         <article className="mt-10 rounded-lg border border-rule bg-bg-1/40 p-8">
           <div className="mb-4 inline-flex items-center gap-2 rounded-sm border border-accent/40 bg-accent/10 px-3 py-1 font-mono text-xs uppercase text-accent">
             <span className="h-1.5 w-1.5 rounded-full bg-accent"></span>
             In research
           </div>
-          <h2 className="font-serif text-[clamp(2.4rem,5vw,4.4rem)] leading-none">{weft.name}</h2>
-          <p className="mt-3 font-mono text-xs uppercase text-ink-2">{weft.tagline}</p>
-          <p className="mt-7 max-w-3xl text-lg leading-8 text-ink-1">{weft.content}</p>
-          {weft.probeWindow ? (
-            <p className="mt-5 font-mono text-xs text-ink-2">Probe window: {weft.probeWindow}.</p>
+          <h2 className="font-serif text-[clamp(2.4rem,5vw,4.4rem)] leading-none">{mlxd.name}</h2>
+          <p className="mt-3 font-mono text-xs uppercase text-ink-2">{mlxd.tagline}</p>
+          <p className="mt-7 max-w-3xl text-lg leading-8 text-ink-1">{mlxd.content}</p>
+          {mlxd.probeWindow ? (
+            <p className="mt-5 font-mono text-xs text-ink-2">Probe window: {mlxd.probeWindow}.</p>
           ) : null}
           <div className="mt-7 flex flex-wrap gap-5 font-mono text-xs">
             <Link
               className="focus-ring inline-flex items-center gap-2 rounded-sm text-accent"
-              href="/projects/weft"
+              href="/projects/mlxd"
             >
               Project page <ArrowRight aria-hidden="true" size={14} />
             </Link>
