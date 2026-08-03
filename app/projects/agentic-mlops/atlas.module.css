@@ -1,0 +1,194 @@
+/* Atlas — agentic MLOps platform. Warm-paper tokens only; single-theme (light).
+   Four-layer identity uses shape + label as primary encoding, muted accent as a
+   supporting cue (the accents fail CVD separation as color-alone — validated). */
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+/* ---- lifecycle ribbon ---------------------------------------------------- */
+.mapHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.mapTitle {
+  font-family: var(--font-serif);
+  font-size: clamp(1.35rem, 2.4vw, 1.9rem);
+  color: var(--ink-0);
+  letter-spacing: -0.01em;
+}
+.mapHint {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-2);
+}
+
+.ribbon {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+@media (max-width: 900px) {
+  .ribbon { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) {
+  .ribbon { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.stop {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.7rem 0.7rem 0.75rem;
+  text-align: left;
+  background: var(--bg-1);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  cursor: pointer;
+  font: inherit;
+  color: var(--ink-1);
+  transition: transform 180ms var(--ease-paper), border-color 180ms var(--ease-paper),
+    background 180ms var(--ease-paper), opacity 180ms var(--ease-paper),
+    box-shadow 180ms var(--ease-paper);
+}
+.stop:hover, .stop:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-soft);
+  outline: none;
+}
+.stop:focus-visible { box-shadow: 0 0 0 2px var(--accent), var(--shadow-soft); }
+
+.stopNum {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--ink-2);
+  letter-spacing: 0.04em;
+}
+.stopName {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 550;
+  color: var(--ink-0);
+  line-height: 1.15;
+}
+.stopUnits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+  margin-top: 0.15rem;
+}
+.stopUnitTag {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--ink-2);
+  padding: 0.05rem 0.25rem;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+.loopFlag {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  color: var(--accent-3);
+  letter-spacing: 0.02em;
+}
+
+/* dimming when a unit is the active lens */
+.dim { opacity: 0.32; }
+.lit { border-color: var(--accent); background: var(--bg-2); }
+
+/* ---- unit index by layer ------------------------------------------------- */
+.layers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 1.1rem;
+}
+.layer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.layerHead {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+.glyph {
+  width: 13px; height: 13px;
+  flex: none;
+  border: 1.5px solid var(--ink-1);
+}
+.glyphData    { border-radius: 0; transform: rotate(45deg); }        /* ◆ diamond */
+.glyphDevops  { border-radius: 0; clip-path: polygon(50% 0, 100% 100%, 0 100%); border: none; background: var(--ink-1); } /* ▲ */
+.glyphAi      { border-radius: 50%; }                                 /* ● */
+.glyphSwe     { border-radius: 2px; }                                 /* ■ */
+.layerName {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink-0);
+}
+.layerMeta { font-family: var(--font-mono); font-size: 0.66rem; color: var(--ink-2); margin-left: auto; }
+
+.unit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  padding: 0.7rem 0.75rem;
+  background: var(--bg-1);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  transition: transform 160ms var(--ease-paper), box-shadow 160ms var(--ease-paper),
+    border-color 160ms var(--ease-paper);
+}
+.unit:hover, .unit:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-soft);
+  outline: none;
+}
+.unit:focus-visible { box-shadow: 0 0 0 2px var(--accent), var(--shadow-soft); }
+.unitActive { border-color: var(--accent); background: var(--bg-2); }
+
+.unitTop { display: flex; align-items: baseline; gap: 0.5rem; }
+.unitId {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.unitTitle { font-family: var(--font-sans); font-size: 0.86rem; font-weight: 550; color: var(--ink-0); }
+.tier {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--ink-2);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
+}
+.unitClaim { font-family: var(--font-body); font-size: 0.8rem; line-height: 1.4; color: var(--ink-1); }
+.unitJd { font-family: var(--font-mono); font-size: 0.62rem; color: var(--ink-2); letter-spacing: 0.01em; }
+
+/* stops a unit claims, when that unit is hovered — surfaced under the index */
+.claimRow {
+  min-height: 1.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--ink-2);
+}
+.claimRow b { color: var(--accent); font-weight: 600; }
