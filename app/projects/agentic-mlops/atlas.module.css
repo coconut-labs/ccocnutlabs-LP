@@ -67,6 +67,23 @@
 }
 .stop:focus-visible { box-shadow: 0 0 0 2px var(--accent), var(--shadow-soft); }
 
+/* Directional flow: a chevron in the gap to the right of each stop, so the
+   sequence reads 1→2→3… Hidden at row ends and on mobile stacks. */
+.stop::after {
+  content: "→";
+  position: absolute;
+  right: -0.52rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ink-2);
+  pointer-events: none;
+}
+.ribbon > li:nth-child(7n) .stop::after,
+.ribbon > li:last-child .stop::after { display: none; }
+@media (max-width: 900px) { .stop::after { display: none; } }
+
 .stopNum {
   font-family: var(--font-mono);
   font-size: 0.66rem;
@@ -104,17 +121,29 @@
 /* dimming when a unit is the active lens */
 .dim { opacity: 0.32; }
 .lit { border-color: var(--accent); background: var(--bg-2); }
+/* loop-back target (8→5, 13/14→6): distinct from the --accent unit lens */
+.loopTarget {
+  border-color: var(--accent-3);
+  box-shadow: inset 0 0 0 1px var(--accent-3);
+}
 
 /* ---- unit index by layer ------------------------------------------------- */
+/* One full-width band per layer (§3.4 reads as a table, not parallel tracks).
+   Bands self-size, so AI's 4 units and the others' 2 each terminate cleanly. */
 .layers {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
-  gap: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
 }
 .layer {
   display: flex;
   flex-direction: column;
-  gap: 0.65rem;
+  gap: 0.7rem;
+}
+.layerUnits {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+  gap: 0.7rem;
 }
 .layerHead {
   display: flex;
@@ -123,15 +152,17 @@
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--rule);
 }
+/* Solid silhouettes — shape carries layer identity (color fails CVD as the sole
+   cue, validated). Filled discriminates far better than 1.5px outline at ~14px. */
 .glyph {
-  width: 13px; height: 13px;
+  width: 14px; height: 14px;
   flex: none;
-  border: 1.5px solid var(--ink-1);
+  background: var(--ink-1);
 }
-.glyphData    { border-radius: 0; transform: rotate(45deg); }        /* ◆ diamond */
-.glyphDevops  { border-radius: 0; clip-path: polygon(50% 0, 100% 100%, 0 100%); border: none; background: var(--ink-1); } /* ▲ */
-.glyphAi      { border-radius: 50%; }                                 /* ● */
-.glyphSwe     { border-radius: 2px; }                                 /* ■ */
+.glyphData    { clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }  /* ◆ diamond */
+.glyphDevops  { clip-path: polygon(50% 0, 100% 100%, 0 100%); }          /* ▲ triangle */
+.glyphAi      { border-radius: 50%; }                                     /* ● circle */
+.glyphSwe     { border-radius: 2px; }                                     /* ■ square */
 .layerName {
   font-family: var(--font-sans);
   font-size: 0.82rem;

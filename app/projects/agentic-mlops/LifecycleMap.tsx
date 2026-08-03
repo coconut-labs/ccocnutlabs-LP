@@ -5,22 +5,22 @@ import styles from "./atlas.module.css";
 
 /* Data lifecycle — §4.2, fourteen stops. Loop-backs: 8→5 (late labels reshape
    features), 13/14→6 (promote / roll back returns traffic to serve). */
-type Stop = { n: number; name: string; units: string[]; loop?: string };
+type Stop = { n: number; name: string; units: string[]; loop?: string; loopTo?: number };
 const STOPS: Stop[] = [
   { n: 1, name: "Ingest", units: ["U1", "U8"] },
   { n: 2, name: "Validate", units: ["U1", "U8"] },
   { n: 3, name: "Land", units: ["U1", "U8"] },
   { n: 4, name: "Transform", units: ["U1", "U8"] },
-  { n: 5, name: "Feature", units: ["U2", "U8"], loop: "↑ from 8" },
+  { n: 5, name: "Feature", units: ["U2", "U8"], loop: "↑ fed by 8" },
   { n: 6, name: "Serve", units: ["U4", "U8"] },
   { n: 7, name: "Capture", units: ["U5", "U6", "U7", "U8"] },
-  { n: 8, name: "Label", units: ["U2", "U8"], loop: "→ 5" },
+  { n: 8, name: "Label", units: ["U2", "U8"], loop: "→ 5", loopTo: 5 },
   { n: 9, name: "Monitor", units: ["U2", "U8"] },
   { n: 10, name: "Train", units: ["U2", "U8"] },
   { n: 11, name: "Gate", units: ["U2", "U8"] },
   { n: 12, name: "Canary", units: ["U3", "U8"] },
-  { n: 13, name: "Promote", units: ["U3", "U8"], loop: "→ 6" },
-  { n: 14, name: "Roll back", units: ["U3", "U8"], loop: "→ 6" },
+  { n: 13, name: "Promote", units: ["U3", "U8"], loop: "→ 6", loopTo: 6 },
+  { n: 14, name: "Roll back", units: ["U3", "U8"], loop: "→ 6", loopTo: 6 },
 ];
 
 /* Layers — §3.4. Identity is glyph + label (color-alone fails CVD, validated). */
@@ -47,41 +47,52 @@ const UNITS: Unit[] = [
   { id: "U10", title: "Scale envelope", layer: "swe", tier: "T3", jd: "scalable microservice architectures", claim: "A documented capacity envelope names the actual binding constraint." },
 ];
 
+type Pin = { kind: "stop"; id: number } | { kind: "unit"; id: string } | null;
+
 export default function LifecycleMap() {
-  // Active lens: either a unit (highlight its stops) or a stop (highlight its units).
-  const [activeUnit, setActiveUnit] = useState<string | null>(null);
-  const [activeStop, setActiveStop] = useState<number | null>(null);
+  // Hover drives desktop; click pins so touch + keyboard users get the same reveal.
+  const [hoverStop, setHoverStop] = useState<number | null>(null);
+  const [hoverUnit, setHoverUnit] = useState<string | null>(null);
+  const [pin, setPin] = useState<Pin>(null);
 
-  const stopClaimsUnit = (s: Stop, u: string | null) => (u ? s.units.includes(u) : false);
-  const unitClaimedByStop = (u: Unit, n: number | null) =>
-    n != null ? (STOPS.find((s) => s.n === n)?.units.includes(u.id) ?? false) : false;
+  const activeStop = hoverStop ?? (pin?.kind === "stop" ? pin.id : null);
+  const activeUnit = hoverUnit ?? (pin?.kind === "unit" ? pin.id : null);
 
+  const activeStopObj = STOPS.find((s) => s.n === activeStop) ?? null;
   const activeUnitObj = UNITS.find((u) => u.id === activeUnit) ?? null;
-  const stopsForActiveUnit = activeUnit
-    ? STOPS.filter((s) => s.units.includes(activeUnit)).map((s) => s.n)
-    : [];
+  const loopTargetN = activeStopObj?.loopTo ?? null;
+  const stopsForActiveUnit = activeUnit ? STOPS.filter((s) => s.units.includes(activeUnit)).map((s) => s.n) : [];
+
+  const togglePin = (next: Pin) =>
+    setPin((cur) =>
+      cur && next && cur.kind === next.kind && cur.id === next.id ? null : next
+    );
 
   return (
     <div className={styles.wrap}>
       <section aria-label="Data lifecycle map">
         <div className={styles.mapHead}>
           <h2 className={styles.mapTitle}>The data lifecycle, fourteen stops</h2>
-          <span className={styles.mapHint}>hover a stop → the units that claim it · hover a unit → the stops it owns</span>
+          <span className={styles.mapHint}>hover or tap a stop → the units that claim it · a unit → the stops it owns</span>
         </div>
         <ol className={styles.ribbon}>
           {STOPS.map((s) => {
-            const lit = stopClaimsUnit(s, activeUnit) || activeStop === s.n;
-            const dim = activeUnit != null && !stopClaimsUnit(s, activeUnit);
+            const lit = activeStop === s.n || (activeUnit != null && s.units.includes(activeUnit));
+            const dim = activeUnit != null && !s.units.includes(activeUnit);
+            const loopTarget = loopTargetN === s.n;
+            const pinned = pin?.kind === "stop" && pin.id === s.n;
             return (
               <li key={s.n} style={{ listStyle: "none" }}>
                 <button
                   type="button"
-                  className={`${styles.stop} ${lit ? styles.lit : ""} ${dim ? styles.dim : ""}`}
-                  onMouseEnter={() => setActiveStop(s.n)}
-                  onMouseLeave={() => setActiveStop(null)}
-                  onFocus={() => setActiveStop(s.n)}
-                  onBlur={() => setActiveStop(null)}
-                  aria-label={`Stop ${s.n}, ${s.name}. Claimed by ${s.units.join(", ")}.`}
+                  aria-pressed={pinned}
+                  className={`${styles.stop} ${lit ? styles.lit : ""} ${loopTarget ? styles.loopTarget : ""} ${dim ? styles.dim : ""}`}
+                  onMouseEnter={() => setHoverStop(s.n)}
+                  onMouseLeave={() => setHoverStop(null)}
+                  onFocus={() => setHoverStop(s.n)}
+                  onBlur={() => setHoverStop(null)}
+                  onClick={() => togglePin({ kind: "stop", id: s.n })}
+                  aria-label={`Stop ${s.n}, ${s.name}. Claimed by ${s.units.join(", ")}.${s.loopTo ? ` Loops back to stop ${s.loopTo}.` : ""}`}
                 >
                   <span className={styles.stopNum}>{String(s.n).padStart(2, "0")}</span>
                   <span className={styles.stopName}>{s.name}</span>
@@ -104,6 +115,11 @@ export default function LifecycleMap() {
             <span>
               <b>{activeUnitObj.id}</b> claims stops {stopsForActiveUnit.join(", ")} — {activeUnitObj.claim}
             </span>
+          ) : activeStopObj ? (
+            <span>
+              <b>Stop {String(activeStopObj.n).padStart(2, "0")} · {activeStopObj.name}</b> — claimed by {activeStopObj.units.join(", ")}
+              {activeStopObj.loopTo ? ` · loops back to stop ${activeStopObj.loopTo}` : ""}
+            </span>
           ) : (
             <span>Ten units, one per JD requirement. Each is built and written before the next starts.</span>
           )}
@@ -118,29 +134,35 @@ export default function LifecycleMap() {
                   <span className={styles.layerName}>{layer.name}</span>
                   <span className={styles.layerMeta}>{layer.blurb}</span>
                 </div>
-                {units.map((u) => {
-                  const active = activeUnit === u.id || unitClaimedByStop(u, activeStop);
-                  return (
-                    <button
-                      type="button"
-                      key={u.id}
-                      className={`${styles.unit} ${active ? styles.unitActive : ""}`}
-                      onMouseEnter={() => setActiveUnit(u.id)}
-                      onMouseLeave={() => setActiveUnit(null)}
-                      onFocus={() => setActiveUnit(u.id)}
-                      onBlur={() => setActiveUnit(null)}
-                      aria-label={`${u.id} ${u.title}, target ${u.tier}. ${u.claim}`}
-                    >
-                      <span className={styles.unitTop}>
-                        <span className={styles.unitId}>{u.id}</span>
-                        <span className={styles.unitTitle}>{u.title}</span>
-                        <span className={styles.tier}>{u.tier}</span>
-                      </span>
-                      <span className={styles.unitClaim}>{u.claim}</span>
-                      <span className={styles.unitJd}>JD · {u.jd}</span>
-                    </button>
-                  );
-                })}
+                <div className={styles.layerUnits}>
+                  {units.map((u) => {
+                    const active =
+                      activeUnit === u.id || (activeStop != null && (STOPS.find((s) => s.n === activeStop)?.units.includes(u.id) ?? false));
+                    const pinned = pin?.kind === "unit" && pin.id === u.id;
+                    return (
+                      <button
+                        type="button"
+                        key={u.id}
+                        aria-pressed={pinned}
+                        className={`${styles.unit} ${active ? styles.unitActive : ""}`}
+                        onMouseEnter={() => setHoverUnit(u.id)}
+                        onMouseLeave={() => setHoverUnit(null)}
+                        onFocus={() => setHoverUnit(u.id)}
+                        onBlur={() => setHoverUnit(null)}
+                        onClick={() => togglePin({ kind: "unit", id: u.id })}
+                        aria-label={`${u.id} ${u.title}, target ${u.tier}. ${u.claim}`}
+                      >
+                        <span className={styles.unitTop}>
+                          <span className={styles.unitId}>{u.id}</span>
+                          <span className={styles.unitTitle}>{u.title}</span>
+                          <span className={styles.tier} title="target evaluation tier (§12)">{u.tier}</span>
+                        </span>
+                        <span className={styles.unitClaim}>{u.claim}</span>
+                        <span className={styles.unitJd}>JD · {u.jd}</span>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             );
           })}
