@@ -25,7 +25,7 @@ const STOPS: Stop[] = [
 
 /* Layers — §3.4. Identity is glyph + label (color-alone fails CVD, validated). */
 type LayerKey = "data" | "devops" | "ai" | "swe";
-const LAYERS: { key: LayerKey; name: string; glyph: string; blurb: string }[] = [
+const LAYERS: { key: LayerKey; name: string; glyph: string | undefined; blurb: string }[] = [
   { key: "data", name: "Data Core", glyph: styles.glyphData, blurb: "schemas · lineage · drift" },
   { key: "devops", name: "DevOps / Platform", glyph: styles.glyphDevops, blurb: "terraform · k8s · teardown" },
   { key: "ai", name: "AI", glyph: styles.glyphAi, blurb: "agents · routing · traces" },
@@ -130,7 +130,7 @@ export default function LifecycleMap() {
             return (
               <div key={layer.key} className={styles.layer}>
                 <div className={styles.layerHead}>
-                  <span className={`${styles.glyph} ${layer.glyph}`} aria-hidden />
+                  <span className={`${styles.glyph} ${layer.glyph ?? ""}`} aria-hidden />
                   <span className={styles.layerName}>{layer.name}</span>
                   <span className={styles.layerMeta}>{layer.blurb}</span>
                 </div>
