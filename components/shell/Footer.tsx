@@ -30,6 +30,9 @@ export function Footer() {
               {route.label}
             </Link>
           ))}
+          <Link className="focus-ring rounded-sm text-accent transition hover:text-accent-2" href="/projects/gallery">
+            Hall of demos
+          </Link>
         </nav>
         <div className="space-y-5 font-mono text-xs text-ink-1">
           <div className="grid gap-3">
