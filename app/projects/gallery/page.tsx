@@ -127,6 +127,12 @@ export default function GalleryPage() {
             </Link>
           </article>
         </div>
+
+        <div className="mt-14 border-t border-rule pt-8">
+          <Link href="/projects" className="focus-ring inline-flex items-center gap-2 rounded-sm font-mono text-sm text-ink-1 hover:text-accent">
+            ← All projects
+          </Link>
+        </div>
       </div>
     </section>
   );

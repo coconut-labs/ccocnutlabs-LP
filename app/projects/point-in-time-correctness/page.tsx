@@ -132,9 +132,12 @@ guardrail: flag rows where feature_ts > label_ts`}
           didn&rsquo;t make sense surfaced it.
         </p>
 
-        <div className="mt-14 border-t border-rule pt-8">
+        <div className="mt-14 flex flex-wrap gap-6 border-t border-rule pt-8">
           <Link className="focus-ring inline-flex items-center gap-2 rounded-sm font-mono text-sm text-accent" href="/projects/gallery">
             <ArrowRight aria-hidden size={14} className="rotate-180" /> Back to the gallery
+          </Link>
+          <Link className="focus-ring rounded-sm font-mono text-sm text-ink-1 hover:text-accent" href="/projects">
+            All projects
           </Link>
         </div>
       </div>

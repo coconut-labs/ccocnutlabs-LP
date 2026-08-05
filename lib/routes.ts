@@ -18,6 +18,10 @@ export const ROUTES: RouteEntry[] = [
   { href: "/research/[slug]",   label: "Research post" },
   { href: "/projects/kvwarden", label: "KVWarden" },
   { href: "/projects/mlxd",     label: "mlxd" },
+  { href: "/projects/gallery",  label: "Hall of demos" },
+  { href: "/projects/agentic-mlops", label: "Agentic MLOps atlas" },
+  { href: "/projects/silent-data-regression-guardrail", label: "Silent data-regression guardrail" },
+  { href: "/projects/point-in-time-correctness", label: "Point-in-time correctness guardrail" },
 
   // Footer-only
   { href: "/colophon", label: "Colophon" },

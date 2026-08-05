@@ -84,6 +84,35 @@ export default async function ProjectsPage() {
           </div>
         </article>
 
+        {/* Gallery — hall of demos */}
+        <article className="mt-10 rounded-lg border border-rule bg-bg-1/40 p-8">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-sm border border-accent-3/40 bg-accent-3/10 px-3 py-1 font-mono text-xs uppercase text-accent-3">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent-3"></span>
+            Showcase · live demos
+          </div>
+          <h2 className="font-serif text-[clamp(2.4rem,5vw,4.4rem)] leading-none">Hall of demos</h2>
+          <p className="mt-3 font-mono text-xs uppercase text-ink-2">an agentic MLOps atlas + measured prototypes</p>
+          <p className="mt-7 max-w-3xl text-lg leading-8 text-ink-1">
+            One method at two scales: a deep agentic-MLOps platform case study, and small
+            free-standing prototypes — each solving one company&rsquo;s real data-systems bottleneck, with a guardrail
+            you can run in your browser. Two shipped, Tier-4, measured.
+          </p>
+          <div className="mt-7 flex flex-wrap gap-5 font-mono text-xs">
+            <Link
+              className="focus-ring inline-flex items-center gap-2 rounded-sm text-accent"
+              href="/projects/gallery"
+            >
+              Open the gallery <ArrowRight aria-hidden="true" size={14} />
+            </Link>
+            <Link
+              className="focus-ring inline-flex items-center gap-2 rounded-sm text-ink-1 hover:text-accent"
+              href="/projects/agentic-mlops"
+            >
+              The atlas <ArrowRight aria-hidden="true" size={14} />
+            </Link>
+          </div>
+        </article>
+
         {/* Tools & experiments */}
         <div className="mt-16 border-t border-rule pt-10" id="tools">
           <p className="font-mono text-xs uppercase text-accent-2">tools and experiments</p>

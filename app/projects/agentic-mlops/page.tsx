@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { buildMetadata } from "@/lib/seo";
 import LifecycleMap from "./LifecycleMap";
 
@@ -121,6 +122,14 @@ export default function AgenticMlopsPage() {
       <section className="content-band pt-0">
         <div className="content-inner">
           <LifecycleMap />
+          <div className="mt-14 flex flex-wrap gap-6 border-t border-rule pt-8 font-mono text-sm">
+            <Link href="/projects/gallery" className="focus-ring rounded-sm text-accent hover:text-accent-2">
+              ← Back to the gallery
+            </Link>
+            <Link href="/projects" className="focus-ring rounded-sm text-ink-1 hover:text-accent">
+              All projects
+            </Link>
+          </div>
         </div>
       </section>
     </>
