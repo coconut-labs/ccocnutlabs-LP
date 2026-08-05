@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Check, X } from "lucide-react";
 import { buildMetadata } from "@/lib/seo";
+import PitDemo from "./PitDemo";
 
 export const metadata = buildMetadata({
   title: "Point-in-time correctness guardrail · Coconut Labs",
@@ -78,6 +79,11 @@ export default function PointInTimePage() {
             <span className="text-ink-1">0.999</span>. Pick a pipeline by accuracy and you pick the bug. The schema
             contract passes it. Only the guardrail catches it.
           </p>
+        </div>
+
+        {/* interactive demo — live join + guardrail */}
+        <div className="mt-12">
+          <PitDemo />
         </div>
 
         {/* mechanism */}
