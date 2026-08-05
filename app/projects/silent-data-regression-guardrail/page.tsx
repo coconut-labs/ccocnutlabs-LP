@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Check, X } from "lucide-react";
 import { buildMetadata } from "@/lib/seo";
+import Demo from "./Demo";
 
 export const metadata = buildMetadata({
   title: "Silent data-regression guardrail · Coconut Labs",
@@ -96,6 +97,11 @@ export default function GuardrailUnitPage() {
             Both catch the loud schema rename. The guardrail catches all five <span className="text-ink-1">silent</span>{" "}
             regressions the contract sails past. Numbers written by the run, not by hand.
           </p>
+        </div>
+
+        {/* interactive demo — runs the real guardrail in-browser */}
+        <div className="mt-12">
+          <Demo />
         </div>
 
         {/* how it works */}
