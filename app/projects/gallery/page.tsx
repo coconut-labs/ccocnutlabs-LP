@@ -14,7 +14,7 @@ export const metadata = buildMetadata({
 const CLASSES: { key: string; name: string; cover: { label: string; href?: string } | null }[] = [
   { key: "A", name: "Silent data regressions / quality guardrails", cover: { label: "Silent data-regression guardrail", href: "/projects/silent-data-regression-guardrail" } },
   { key: "B", name: "Point-in-time & lineage correctness", cover: { label: "Point-in-time correctness guardrail", href: "/projects/point-in-time-correctness" } },
-  { key: "C", name: "Throughput & caching", cover: null },
+  { key: "C", name: "Throughput & caching", cover: { label: "Silent cache-miss guardrail", href: "/projects/silent-cache-miss" } },
   { key: "D", name: "Cost & token attribution", cover: { label: "Atlas · cost plane", href: "/projects/agentic-mlops" } },
   { key: "E", name: "Format & storage tradeoffs", cover: null },
   { key: "F", name: "Eval & replay", cover: { label: "Atlas · reasoning path", href: "/projects/agentic-mlops" } },
@@ -101,6 +101,26 @@ export default function GalleryPage() {
             </p>
             <Link
               href="/projects/point-in-time-correctness"
+              className="focus-ring mt-6 inline-flex items-center gap-2 rounded-sm font-mono text-sm text-accent"
+            >
+              Read the unit <ArrowRight aria-hidden size={14} />
+            </Link>
+          </article>
+
+          {/* silent cache-miss unit */}
+          <article className="flex flex-col rounded-lg border border-rule bg-bg-1/70 p-8 transition hover:shadow-[var(--shadow-paper)]">
+            <div className="mb-4 inline-flex w-fit items-center gap-2 rounded-sm border border-success/40 bg-success/10 px-3 py-1 font-mono text-xs uppercase text-success">
+              <span className="h-1.5 w-1.5 rounded-full bg-success"></span> Shipped · Tier 4
+            </div>
+            <h2 className="font-serif text-3xl leading-tight text-ink-0">Silent cache-miss guardrail</h2>
+            <p className="mt-2 font-mono text-xs uppercase text-ink-2">prompt caching · throughput · class C</p>
+            <p className="mt-5 flex-1 text-base leading-7 text-ink-1">
+              Catches a cache that silently never hits — functional tests pass, every request pays full cost.{" "}
+              <span className="font-mono">95% hit-ratio working vs 0%</span> (20× redundant compute), invisible to a
+              correctness check.
+            </p>
+            <Link
+              href="/projects/silent-cache-miss"
               className="focus-ring mt-6 inline-flex items-center gap-2 rounded-sm font-mono text-sm text-accent"
             >
               Read the unit <ArrowRight aria-hidden size={14} />
