@@ -18,7 +18,7 @@ const CLASSES: { key: string; name: string; cover: { label: string; href?: strin
   { key: "D", name: "Cost & token attribution", cover: { label: "Atlas · cost plane", href: "/projects/agentic-mlops" } },
   { key: "E", name: "Format & storage tradeoffs", cover: { label: "Columnar-scan bytes guardrail", href: "/projects/columnar-scan-bytes-guardrail" } },
   { key: "F", name: "Eval & replay", cover: { label: "Atlas · reasoning path", href: "/projects/agentic-mlops" } },
-  { key: "G", name: "Ingestion & schema-drift", cover: null },
+  { key: "G", name: "Ingestion & schema-drift", cover: { label: "Ingestion data-contract guardrail", href: "/projects/ingestion-data-contract" } },
 ];
 
 export default function GalleryPage() {
@@ -140,6 +140,26 @@ export default function GalleryPage() {
             </p>
             <Link
               href="/projects/columnar-scan-bytes-guardrail"
+              className="focus-ring mt-6 inline-flex items-center gap-2 rounded-sm font-mono text-sm text-accent"
+            >
+              Read the unit <ArrowRight aria-hidden size={14} />
+            </Link>
+          </article>
+
+          {/* ingestion data-contract unit */}
+          <article className="flex flex-col rounded-lg border border-rule bg-bg-1/70 p-8 transition hover:shadow-[var(--shadow-paper)]">
+            <div className="mb-4 inline-flex w-fit items-center gap-2 rounded-sm border border-success/40 bg-success/10 px-3 py-1 font-mono text-xs uppercase text-success">
+              <span className="h-1.5 w-1.5 rounded-full bg-success"></span> Shipped · Tier 4
+            </div>
+            <h2 className="font-serif text-3xl leading-tight text-ink-0">Ingestion data-contract guardrail</h2>
+            <p className="mt-2 font-mono text-xs uppercase text-ink-2">ELT · schema-drift · class G</p>
+            <p className="mt-5 flex-1 text-base leading-7 text-ink-1">
+              Catches drift that keeps the column present and non-null — a silent unit change reads revenue as{" "}
+              <span className="font-mono">$157k vs a true $299k</span>, zero errors, zero nulls. Schema/null checks pass
+              it; the contract doesn&rsquo;t.
+            </p>
+            <Link
+              href="/projects/ingestion-data-contract"
               className="focus-ring mt-6 inline-flex items-center gap-2 rounded-sm font-mono text-sm text-accent"
             >
               Read the unit <ArrowRight aria-hidden size={14} />
