@@ -23,6 +23,7 @@ export const ROUTES: RouteEntry[] = [
   { href: "/projects/silent-data-regression-guardrail", label: "Silent data-regression guardrail" },
   { href: "/projects/point-in-time-correctness", label: "Point-in-time correctness guardrail" },
   { href: "/projects/silent-cache-miss", label: "Silent cache-miss guardrail" },
+  { href: "/projects/columnar-scan-bytes-guardrail", label: "Columnar-scan bytes guardrail" },
 
   // Footer-only
   { href: "/colophon", label: "Colophon" },

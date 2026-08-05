@@ -16,7 +16,7 @@ const CLASSES: { key: string; name: string; cover: { label: string; href?: strin
   { key: "B", name: "Point-in-time & lineage correctness", cover: { label: "Point-in-time correctness guardrail", href: "/projects/point-in-time-correctness" } },
   { key: "C", name: "Throughput & caching", cover: { label: "Silent cache-miss guardrail", href: "/projects/silent-cache-miss" } },
   { key: "D", name: "Cost & token attribution", cover: { label: "Atlas · cost plane", href: "/projects/agentic-mlops" } },
-  { key: "E", name: "Format & storage tradeoffs", cover: null },
+  { key: "E", name: "Format & storage tradeoffs", cover: { label: "Columnar-scan bytes guardrail", href: "/projects/columnar-scan-bytes-guardrail" } },
   { key: "F", name: "Eval & replay", cover: { label: "Atlas · reasoning path", href: "/projects/agentic-mlops" } },
   { key: "G", name: "Ingestion & schema-drift", cover: null },
 ];
@@ -121,6 +121,25 @@ export default function GalleryPage() {
             </p>
             <Link
               href="/projects/silent-cache-miss"
+              className="focus-ring mt-6 inline-flex items-center gap-2 rounded-sm font-mono text-sm text-accent"
+            >
+              Read the unit <ArrowRight aria-hidden size={14} />
+            </Link>
+          </article>
+
+          {/* columnar-scan bytes unit */}
+          <article className="flex flex-col rounded-lg border border-rule bg-bg-1/70 p-8 transition hover:shadow-[var(--shadow-paper)]">
+            <div className="mb-4 inline-flex w-fit items-center gap-2 rounded-sm border border-success/40 bg-success/10 px-3 py-1 font-mono text-xs uppercase text-success">
+              <span className="h-1.5 w-1.5 rounded-full bg-success"></span> Shipped · Tier 4
+            </div>
+            <h2 className="font-serif text-3xl leading-tight text-ink-0">Columnar-scan bytes guardrail</h2>
+            <p className="mt-2 font-mono text-xs uppercase text-ink-2">columnar formats · storage · class E</p>
+            <p className="mt-5 flex-1 text-base leading-7 text-ink-1">
+              A two-column query returns the right rows whether it reads 2 columns or all 12 — so correctness passes a
+              full scan reading <span className="font-mono">44.7× the bytes</span>. The guardrail counts bytes, not rows.
+            </p>
+            <Link
+              href="/projects/columnar-scan-bytes-guardrail"
               className="focus-ring mt-6 inline-flex items-center gap-2 rounded-sm font-mono text-sm text-accent"
             >
               Read the unit <ArrowRight aria-hidden size={14} />
