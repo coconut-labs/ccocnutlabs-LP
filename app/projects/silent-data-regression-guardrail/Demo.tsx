@@ -60,7 +60,7 @@ export default function Demo() {
       {/* two verdicts */}
       <div className="mt-6 grid gap-4 sm:grid-cols-2">
         <Verdict
-          name="Point-in-time guardrail"
+          name="The guardrail"
           flagged={guardrailFlagged}
           good={active === null ? !guardrailFlagged : guardrailFlagged}
           detail={
